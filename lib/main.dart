@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/dashboard.dart';
+import 'package:lista_de_compras/pages/login_page.dart';
 
 void main() {
   runApp(const StockMasterApp());
@@ -14,7 +14,7 @@ class StockMasterApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'StockMaster',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const DashboardPage(),
+      home: const LoginPage(),
     );
   }
 }
