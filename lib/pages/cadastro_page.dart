@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lista_de_compras/models/usuario.dart';
+import 'package:stock_master/models/usuario.dart';
 import '../pages/login_page.dart';
 import '../dao.dart';
 
@@ -16,16 +16,15 @@ class _CadastroPage extends State<CadastroPage> {
   TextEditingController senhaController = TextEditingController();
   bool obscureText = true;
 
-
   void _salvarUsuario() async {
     final nome = nomeController.text;
     final email = emailController.text;
     final senha = senhaController.text;
 
     if (nome.isEmpty || email.isEmpty || senha.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Preencha todos os campos')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Preencha todos os campos')));
       return;
     }
 
@@ -41,11 +40,9 @@ class _CadastroPage extends State<CadastroPage> {
     senhaController.clear();
 
     Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder:
-       (context) => const LoginPage()),
-  );
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
   }
 
   @override

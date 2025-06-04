@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lista_de_compras/models/usuario.dart';
-import 'package:lista_de_compras/pages/cadastro_page.dart';
+import 'package:stock_master/models/usuario.dart';
+import 'package:stock_master/pages/cadastro_page.dart';
 import '../dao.dart';
 import '../pages/dashboard.dart';
 
@@ -27,21 +27,23 @@ class _LoginPage extends State<LoginPage> {
       return;
     }
 
-    final Usuario? usuario = await DatabaseHelper().autenticarUsuario(email, senha);
+    final Usuario? usuario = await DatabaseHelper().autenticarUsuario(
+      email,
+      senha,
+    );
 
     if (usuario != null) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Bem-vindo, ${usuario.nome}!')));
 
-    Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder:
-       (context) => const DashboardPage()),
-    );
-    } 
-    else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DashboardPage(usuario: usuario),
+        ),
+      );
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('E-mail ou senha incorretos')),
       );

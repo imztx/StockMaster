@@ -47,6 +47,7 @@ class DatabaseHelper {
         tipo TEXT NOT NULL,
         quantidade INTEGER NOT NULL,
         data TEXT NOT NULL,
+        usuario_id INTEGER,
         FOREIGN KEY (produto_id) REFERENCES produtos(id)
       )
     ''');
@@ -66,6 +67,16 @@ class DatabaseHelper {
       whereArgs: [email, senha],
     );
 
+    if (result.isNotEmpty) {
+      return Usuario.fromMap(result.first);
+    } else {
+      return null;
+    }
+  }
+
+  Future<Usuario?> buscarUsuarioPorId(int id) async {
+    final db = await database;
+    final result = await db.query('usuarios', where: 'id = ?', whereArgs: [id]);
     if (result.isNotEmpty) {
       return Usuario.fromMap(result.first);
     } else {

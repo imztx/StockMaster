@@ -1,4 +1,4 @@
-name: lista_de_compras
+name: stock_master
 description: "StockMaster"
 publish_to: 'none'
 version: 0.1.0

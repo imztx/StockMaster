@@ -1,9 +1,10 @@
 class Movimentacao {
   final int? id;
   final int produtoId;
-  final String tipo; // 'entrada' ou 'saida'
+  final String tipo;
   final int quantidade;
   final DateTime data;
+  final int? usuarioId;
 
   Movimentacao({
     this.id,
@@ -11,6 +12,7 @@ class Movimentacao {
     required this.tipo,
     required this.quantidade,
     required this.data,
+    required this.usuarioId,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,7 @@ class Movimentacao {
       'tipo': tipo,
       'quantidade': quantidade,
       'data': data.toIso8601String(),
+      'usuario_id': usuarioId,
     };
   }
 
@@ -30,6 +33,7 @@ class Movimentacao {
       tipo: map['tipo'],
       quantidade: map['quantidade'],
       data: DateTime.parse(map['data']),
+      usuarioId: map['usuario_id'],
     );
   }
 }
