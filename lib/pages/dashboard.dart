@@ -67,6 +67,12 @@ class _DashboardPageState extends State<DashboardPage> {
                           Text(
                             'Preço: R\$ ${produto.preco.toStringAsFixed(2)}',
                           ),
+                          Text(
+                            'Estoque: $saldo',
+                            style: TextStyle(
+                              color: saldo > 0 ? Colors.green : Colors.red,
+                              fontWeight: FontWeight.bold
+                            ),),
                         ],
                       ),
                       trailing: PopupMenuButton<String>(
