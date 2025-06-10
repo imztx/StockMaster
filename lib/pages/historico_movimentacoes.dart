@@ -7,7 +7,7 @@ import '../dao.dart';
 class HistoricoMovimentacoesPage extends StatefulWidget {
   final Produto produto;
   final Usuario
-  usuario; // para mostrar o nome, se quiser filtrar ou exibir algo
+  usuario; 
 
   const HistoricoMovimentacoesPage({
     super.key,
@@ -24,7 +24,7 @@ class _HistoricoMovimentacoesPageState
     extends State<HistoricoMovimentacoesPage> {
   final db = DatabaseHelper();
   List<Movimentacao> movimentacoes = [];
-  Map<int, String> usuarios = {}; // Mapeia IDs para nomes
+  Map<int, String> usuarios = {}; 
 
   @override
   void initState() {

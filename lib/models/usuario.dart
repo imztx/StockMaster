@@ -2,7 +2,7 @@ class Usuario {
   final int? id;
   final String nome;
   final String email;
-  final String senha; // armazenar como hash se possível
+  final String senha; 
 
   Usuario({
     this.id,

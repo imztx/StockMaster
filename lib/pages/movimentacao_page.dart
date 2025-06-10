@@ -29,6 +29,21 @@ class _MovimentacaoPageState extends State<MovimentacaoPage> {
     if (_formKey.currentState!.validate()) {
       final quantidade = int.parse(_quantidadeController.text.trim());
 
+      if (tipo == 'saida') {
+        final estoqueAtual = await db.calcularEstoque(widget.produto.id!);
+
+        if (quantidade > estoqueAtual) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Estoque insuficiente para retirar. Disponível: $estoqueAtual',
+              ),
+            ),
+          );
+          return;
+        }
+      }
+
       final movimentacao = Movimentacao(
         produtoId: widget.produto.id!,
         tipo: tipo,
@@ -43,7 +58,7 @@ class _MovimentacaoPageState extends State<MovimentacaoPage> {
         SnackBar(content: Text('Movimentação registrada com sucesso!')),
       );
 
-      Navigator.pop(context); // Volta para o dashboard
+      Navigator.pop(context);
     }
   }
 
@@ -57,6 +72,12 @@ class _MovimentacaoPageState extends State<MovimentacaoPage> {
           key: _formKey,
           child: ListView(
             children: [
+              const SizedBox(height: 32),
+              Text(
+                'Tipo de movimentação',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8),
               DropdownButtonFormField<String>(
                 value: tipo,
                 items: const [
@@ -69,14 +90,24 @@ class _MovimentacaoPageState extends State<MovimentacaoPage> {
                   });
                 },
                 decoration: const InputDecoration(
-                  labelText: 'Tipo de Movimentação',
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
+              Text(
+                'Quantidade',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _quantidadeController,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'Quantidade'),
+                decoration: const InputDecoration(
+                  labelText: 'Informe a quantidade',
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Informe a quantidade';
@@ -89,9 +120,13 @@ class _MovimentacaoPageState extends State<MovimentacaoPage> {
                 },
               ),
               const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: _salvarMovimentacao,
-                child: const Text('Registrar Movimentação'),
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: _salvarMovimentacao,
+                  child: const Text('Registrar Movimentação'),
+                ),
               ),
             ],
           ),
