@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lista_de_compras/pages/login_page.dart';
+import 'package:stock_master/pages/login_page.dart';
 
 void main() {
   runApp(const StockMasterApp());

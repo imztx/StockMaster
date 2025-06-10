@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import '../dao.dart';
-import 'package:lista_de_compras/models/movimentacao.dart';
-import 'package:lista_de_compras/models/produto.dart';
+import 'package:stock_master/models/movimentacao.dart';
+import 'package:stock_master/models/produto.dart';
+import 'package:stock_master/models/usuario.dart';
 
 class MovimentacaoPage extends StatefulWidget {
   final Produto produto;
+  final Usuario usuario;
 
-  const MovimentacaoPage({super.key, required this.produto});
+  const MovimentacaoPage({
+    super.key,
+    required this.produto,
+    required this.usuario,
+  });
 
   @override
   State<MovimentacaoPage> createState() => _MovimentacaoPageState();
@@ -28,6 +34,7 @@ class _MovimentacaoPageState extends State<MovimentacaoPage> {
         tipo: tipo,
         quantidade: quantidade,
         data: DateTime.now(),
+        usuarioId: widget.usuario.id,
       );
 
       await db.inserirMovimentacao(movimentacao);

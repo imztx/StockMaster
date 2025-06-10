@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../dao.dart';
-import 'package:lista_de_compras/models/produto.dart';
+import 'package:stock_master/models/produto.dart';
 
 class CadastroProdutoPage extends StatefulWidget {
   const CadastroProdutoPage({super.key});

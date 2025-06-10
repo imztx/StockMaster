@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:lista_de_compras/pages/movimentacao_page.dart';
+import 'package:stock_master/models/usuario.dart';
+import 'package:stock_master/pages/movimentacao_page.dart';
 import '../dao.dart';
-import 'package:lista_de_compras/models/produto.dart';
+import 'package:stock_master/models/produto.dart';
 import 'cadastro_produto.dart';
+import 'historico_movimentacoes.dart';
 
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({super.key});
+  final Usuario usuario;
+  const DashboardPage({super.key, required this.usuario});
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
@@ -72,19 +75,54 @@ class _DashboardPageState extends State<DashboardPage> {
                             ),),
                         ],
                       ),
-                      trailing: Text(
-                        'Estoque: $saldo',
-                        style: TextStyle(
-                          color: saldo > 0 ? Colors.green : Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      trailing: PopupMenuButton<String>(
+                        onSelected: (value) async {
+                          if (value == 'movimentacao') {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => MovimentacaoPage(
+                                      produto: produto,
+                                      usuario: widget.usuario,
+                                    ),
+                              ),
+                            );
+                            carregarProdutos();
+                          } else if (value == 'historico') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => HistoricoMovimentacoesPage(
+                                      produto: produto,
+                                      usuario: widget.usuario,
+                                    ),
+                              ),
+                            );
+                          }
+                        },
+                        itemBuilder:
+                            (BuildContext context) => [
+                              const PopupMenuItem<String>(
+                                value: 'movimentacao',
+                                child: Text('Nova Movimentação'),
+                              ),
+                              const PopupMenuItem<String>(
+                                value: 'historico',
+                                child: Text('Ver Histórico'),
+                              ),
+                            ],
                       ),
                       onTap: () async {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder:
-                                (context) => MovimentacaoPage(produto: produto),
+                                (context) => MovimentacaoPage(
+                                  produto: produto,
+                                  usuario: widget.usuario,
+                                ),
                           ),
                         );
                         carregarProdutos();
