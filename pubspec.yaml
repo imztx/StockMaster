@@ -3,6 +3,10 @@ description: "StockMaster"
 publish_to: 'none'
 version: 0.1.0
 
+flutter_launcher_name:
+  name: "StockMaster"
+
+
 environment:
   sdk: ^3.7.0
 
