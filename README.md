@@ -53,5 +53,9 @@ Ele permite registrar e excluir produtos, controlar entradas e saídas, visualiz
 **3. Execute o App**
 
     flutter run
+    
+## Requisitos
 
-
+* Flutter
+* Android Studio ou VS Code com Dart SDK
+* Emulador Android ou dispositivo físico conectado
